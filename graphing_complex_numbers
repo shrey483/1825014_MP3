@@ -1,0 +1,63 @@
+import math 
+import cmath 
+import matplotlib.pyplot as plt 
+
+a = float(input("Enter the first real part: "))
+b = float(input("Enter the first img part: "))
+
+w = complex(a,b)
+
+
+c = float(input("Enter the second real part: "))
+d = float(input("Enter the second img part: "))
+
+z = complex(c,d)
+
+
+#translation which is addition of 2 complex numbers and graph   
+t = w + z 
+
+#scaling which is multiplication of a scalar 
+s = float(input("Enter scaling factor for first complex number: "))
+scaling = s * w 
+
+
+
+#rotation 
+rotation_angle = float(input("Enter rotation angle (in degrees): "))
+angle_rad = math.radians(rotation_angle)
+
+theta = cmath.phase(z)
+new_theta = theta + angle_rad
+
+r1 = abs(z) * (math.e ** (1j * new_theta))
+
+print("Rotated complex number:", r1)
+
+#reflection
+reflected_w = z.conjugate()
+
+# 3. Plotting setup
+fig, ax = plt.subplots(figsize=(8, 8))
+
+def plot_complex(num, color,  label, ):
+    ax.plot([0, num.real], [0, num.imag], color=color, marker ='o', linewidth=2, label=label)
+
+# Plot original numbers and transformations
+plot_complex(w, 'blue', f'Original w ({w.real:.1f} + {w.imag:.1f}j)')
+plot_complex(z, 'green', f'Original z ({z.real:.1f} + {z.imag:.1f}j)')
+plot_complex(t, 'purple', f'Translation w+z ({t.real:.1f} + {t.imag:.1f}j)')
+plot_complex(scaling, 'orange', f'Scaling s*w ({scaling.real:.1f} + {scaling.imag:.1f}j)')
+plot_complex(r1, 'red', f'Rotated z ({r1.real:.1f} + {r1.imag:.1f}j)')
+plot_complex(reflected_w, 'yellow', f'Reflected z ({reflected_w.real:.1f} + {reflected_w:.1f}j)')
+
+
+ax.grid(True, linestyle='--', alpha=0.6)
+ax.set_xlabel("Real Axis")
+ax.set_ylabel("Imaginary Axis")
+ax.set_title("Complex Number Transformations")
+ax.legend()
+
+plt.show()
+
+
